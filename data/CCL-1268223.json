@@ -1,0 +1,189 @@
+{
+  "caseId": "CCL-1268223",
+  "token": "Q0NMLTEyNjgyMjM=",
+  "fields": {
+    "certificateStatus": "نشط",
+    "certificateNumber": "2025002760",
+    "issueDate": "20/03/2025",
+    "expiryDate": "20/03/2027",
+    "classificationType": "تصنيف المنشآت",
+    "currentVersion": "16",
+    "certificateType": "تحديث الأنشطة",
+    "unifiedNumber": "7014323690",
+    "registrationIssueDate": "07/06/2015",
+    "entityName": "شركة مشيد النهضة للمقاولات العامة شخص واحد",
+    "entityType": "ذات مسئولية محدودة",
+    "entityNationality": "سعودي",
+    "capital": "50000",
+    "region": "منطقة الباحه",
+    "city": "الباحة",
+    "phone": "0566008262",
+    "fax": "no value",
+    "email": "zaky1387@gmail.com",
+    "entityNameHeading": "شركة مشيد النهضة للمقاولات العامة شخص واحد"
+  },
+  "classifications": [
+    {
+      "sector": "التشييد والبناء",
+      "degree": "الثانية",
+      "nonFinancialScore": "",
+      "financialScore": "BBB",
+      "status": "Classified"
+    },
+    {
+      "sector": "التشغيل والصيانة والخدمات",
+      "degree": "الثانية",
+      "nonFinancialScore": "",
+      "financialScore": "BBB",
+      "status": "Classified"
+    }
+  ],
+  "versions": [
+    {
+      "version": "16",
+      "updatedAt": "16/11/2025 05:28 م",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "15",
+      "updatedAt": "16/11/2025 05:27 م",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث"
+    },
+    {
+      "version": "14",
+      "updatedAt": "16/11/2025 05:27 م",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "13",
+      "updatedAt": "16/11/2025 05:27 م",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "12",
+      "updatedAt": "16/11/2025 05:26 م",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث"
+    },
+    {
+      "version": "11",
+      "updatedAt": "16/11/2025 05:26 م",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "10",
+      "updatedAt": "16/11/2025 05:26 م",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "9",
+      "updatedAt": "13/11/2025 11:07 ص",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "8",
+      "updatedAt": "13/11/2025 10:40 ص",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "7",
+      "updatedAt": "13/11/2025 10:39 ص",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "6",
+      "updatedAt": "13/11/2025 10:39 ص",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث"
+    },
+    {
+      "version": "5",
+      "updatedAt": "13/11/2025 10:38 ص",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "4",
+      "updatedAt": "13/11/2025 10:38 ص",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "3",
+      "updatedAt": "13/11/2025 09:48 ص",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث الأنشطة"
+    },
+    {
+      "version": "2",
+      "updatedAt": "29/10/2025 12:58 م",
+      "userType": "تفويض بلدي",
+      "versionType": "تحديث معلومات التواصل"
+    },
+    {
+      "version": "1",
+      "updatedAt": "20/03/2025 03:28 م",
+      "userType": "تفويض بلدي",
+      "versionType": "اصدار"
+    }
+  ],
+  "owners": [
+    "اسماء عبدالرحمن محمد الزهراني"
+  ],
+  "evaluations": [
+    {
+      "criterion": "التشييد والبناء",
+      "rating": "",
+      "count": "BBB"
+    },
+    {
+      "criterion": "التشغيل والصيانة والخدمات",
+      "rating": "",
+      "count": "BBB"
+    },
+    {
+      "criterion": "التشييد والبناء",
+      "rating": "",
+      "count": "BBB"
+    },
+    {
+      "criterion": "التشغيل والصيانة والخدمات",
+      "rating": "",
+      "count": "BBB"
+    },
+    {
+      "criterion": "الاحترافية في العمل",
+      "rating": "(0/5)",
+      "count": "0"
+    },
+    {
+      "criterion": "الالتزام بالوقت",
+      "rating": "(0/5)",
+      "count": "0"
+    },
+    {
+      "criterion": "التواصل مع العميل",
+      "rating": "(0/5)",
+      "count": "0"
+    },
+    {
+      "criterion": "التقيد بقوانين السلامة والأمان",
+      "rating": "(0/5)",
+      "count": "0"
+    },
+    {
+      "criterion": "المصداقية والشفافية",
+      "rating": "(0/5)",
+      "count": "0"
+    }
+  ]
+}
