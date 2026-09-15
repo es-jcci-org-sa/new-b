@@ -1,15 +1,27 @@
-Unified certificate snapshot
+النظام الموحد لشهادات التصنيف
 
-Current route:
-/prweb/PRAuth/QRCode/viewCertificateDetails/Q0NMLTEyNjgyMjM=
+كل شهادة لها ملف JSON وملف PDF داخل مجلد data بنفس الاسم الأساسي.
 
-Data file:
-data/CCL-1268223.json
+مثال الشهادة الحالية:
+  data/CCL-1268223.json
+  data/CCL-1268223.pdf
 
-Routes:
-data/routes.json
+الربط بين التوكن واسم الملف موجود في:
+  data/routes.json
 
-For a future clone output folder:
-python tools/add-output.py /path/to/output
+مثال:
+  "Q0NMLTEyNjgyMjM=": "CCL-1268223"
 
-The static template does not need the original Pega JS/API files.
+زر "تنزيل" يقرأ pdfFile من JSON. إذا لم يوجد الحقل، يستخدم تلقائياً:
+  <ID>.pdf
+
+لإضافة أو استبدال PDF:
+1) ضع ملف الـ PDF داخل data.
+2) الأفضل تسميته بنفس اسم ملف JSON، مثال: CCL-1268223.pdf
+3) لو اخترت اسماً مختلفاً، ضع داخل JSON:
+   "pdfFile": "اسم-الملف.pdf"
+
+الأنشطة موجودة داخل:
+  classifications[].activities
+
+والفتح/القفل يتم تلقائياً من js/certificate-router.js.

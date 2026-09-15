@@ -98,7 +98,27 @@
       var tb=table.tBodies[0]; if(!tb) return; while(tb.children.length>1) tb.removeChild(tb.lastChild);
       (rows||[]).forEach(function(row,idx){
         var tr=document.createElement('tr'); tr.className=(idx%2?'evenRow':'oddRow')+' cellCont';
-        cols.forEach(function(c){ var td=document.createElement('td'); td.className='dataValueRead gridCell'; var d=document.createElement('div'); d.className='oflowDivM'; var sp=document.createElement('span'); sp.textContent=esc(row[c]); d.appendChild(sp); td.appendChild(d); tr.appendChild(td); });
+        cols.forEach(function(c,colIdx){
+          var td=document.createElement('td');
+          td.className=(tableName==='versions' && c==='userType') ? 'centered gridCell' : 'dataValueRead gridCell';
+          if(tableName==='versions'){
+            td.style.height=(colIdx===0?'51px':'49px');
+            td.setAttribute('data-importance','secondary');
+            if(c==='version') td.setAttribute('data-attribute-name','Certificate Version');
+            if(c==='updatedAt') td.setAttribute('data-attribute-name','Certificate Update Date and Time');
+            if(c==='userType') td.setAttribute('data-attribute-name','Certificate Update User Type');
+            if(c==='versionType') td.setAttribute('data-attribute-name','Certificate Version Type');
+          }
+          var d=document.createElement('div'); d.className='oflowDivM';
+          if(tableName==='versions' && c==='userType'){
+            var fi=document.createElement('div'); fi.className='field-item'; fi.setAttribute('datavalueread','');
+            var sp=document.createElement('span'); sp.className='readonly_text'; sp.textContent=esc(row[c]);
+            fi.appendChild(sp); d.appendChild(fi);
+          } else {
+            var sp=document.createElement('span'); sp.textContent=esc(row[c]); d.appendChild(sp);
+          }
+          td.appendChild(d); tr.appendChild(td);
+        });
         tb.appendChild(tr);
       });
     });
@@ -117,6 +137,27 @@
       });
     });
   }
+
+  function wireDownload(id,data){
+    var file=(data&&data.pdfFile)||String(id)+'.pdf';
+    var url=new URL('data/'+encodeURIComponent(file),root).href;
+    document.querySelectorAll('button').forEach(function(btn){
+      if((btn.textContent||'').trim()!=='تنزيل') return;
+      btn.removeAttribute('disabled');
+      btn.style.cursor='pointer';
+      btn.onclick=function(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+        var a=document.createElement('a');
+        a.href=url;
+        a.download=file;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      };
+    });
+  }
+
   async function start(){
     var token=tokenFromPath();
     if(!token){ clearDynamic(); return; }
@@ -128,6 +169,7 @@
       renderRows('classifications',data.classifications,['sector','degree','nonFinancialScore','financialScore','status']);
       renderRows('versions',data.versions,['version','updatedAt','userType','versionType']);
       renderOwners(data.owners);
+      wireDownload(id,data);
     }catch(e){ console.error('Certificate data load failed',e); clearDynamic(); }
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
