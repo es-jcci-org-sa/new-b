@@ -33,3 +33,6 @@ V6 - Original Pega runtime restored
 تفاعل Grid/التركيز/تحديد الصفوف الآن يعتمد على كود Pega الأصلي وليس على محاكاة مضافة يدويًا.
 certificate-router.js ما زال مسؤولًا فقط عن تحميل بيانات JSON والأنشطة وزر PDF في النظام الموحد.
 ملاحظة: أي وظيفة أصلية تحتاج اتصالًا فعليًا بسيرفر Pega قد لا تعمل على GitHub Pages، أما تفاعلات الواجهة المحلية فتستخدم runtime الأصلي.
+
+
+V8: Restored the original clone resource mapper + captured Pega AJAX replay. The rating-grid SETFOCUS action uses captured AJAXTrackID responses, so the original Pega interaction can run without the live Balady server.
