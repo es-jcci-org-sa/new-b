@@ -10,19 +10,94 @@
   function setField(key,value){
     document.querySelectorAll('[data-cert-field="'+key+'"]').forEach(function(el){ el.textContent=esc(value); });
   }
+  function dataTables(name){
+    return document.querySelectorAll('table[data-cert-table="'+name+'"][pl_prop]');
+  }
   function clearDynamic(){
     document.querySelectorAll('[data-cert-field]').forEach(function(el){el.textContent='';});
-    document.querySelectorAll('[data-cert-table] tbody').forEach(function(tb){ while(tb.children.length>1) tb.removeChild(tb.lastChild); });
+    ['classifications','versions'].forEach(function(name){
+      dataTables(name).forEach(function(table){
+        var tb=table.tBodies[0];
+        if(!tb) return;
+        while(tb.children.length>1) tb.removeChild(tb.lastChild);
+      });
+    });
     document.querySelectorAll('[data-cert-list="owners"]').forEach(function(el){el.innerHTML='';});
   }
+  function makeActivityDetail(row,idx,colspan){
+    var detail=document.createElement('tr');
+    detail.className='cert-activity-detail';
+    detail.hidden=true;
+    detail.setAttribute('data-cert-activity-detail',String(idx));
+    var td=document.createElement('td');
+    td.colSpan=colspan;
+    var panel=document.createElement('div');
+    panel.className='cert-activities-panel';
+    var title=document.createElement('div');
+    title.className='cert-activities-title';
+    title.textContent='Sector Activities';
+    panel.appendChild(title);
+    var grid=document.createElement('div');
+    grid.className='cert-activities-grid';
+    var activities=Array.isArray(row.activities)?row.activities:[];
+    if(activities.length){
+      activities.forEach(function(name){
+        var chip=document.createElement('div');
+        chip.className='cert-activity-chip';
+        chip.textContent=esc(name);
+        grid.appendChild(chip);
+      });
+    } else {
+      var empty=document.createElement('div');
+      empty.className='cert-activities-empty';
+      empty.textContent='لا توجد أنشطة محفوظة لهذا القطاع في ملف البيانات الحالي';
+      grid.appendChild(empty);
+    }
+    panel.appendChild(grid); td.appendChild(panel); detail.appendChild(td);
+    return detail;
+  }
+  function toggleDetail(btn,detail){
+    var open=btn.getAttribute('aria-expanded')==='true';
+    btn.setAttribute('aria-expanded',open?'false':'true');
+    btn.classList.toggle('is-open',!open);
+    detail.hidden=open;
+  }
+  function renderClassifications(rows){
+    dataTables('classifications').forEach(function(table){
+      var tb=table.tBodies[0]; if(!tb) return;
+      while(tb.children.length>1) tb.removeChild(tb.lastChild);
+      (rows||[]).forEach(function(row,idx){
+        var tr=document.createElement('tr');
+        tr.className=(idx%2?'evenRow':'oddRow')+' cellCont cert-classification-row';
+        tr.setAttribute('data-cert-classification',String(idx));
+        var exp=document.createElement('td');
+        exp.className='expandPane rowHandle '+(idx%2?'evenRow':'oddRow');
+        exp.style.width='1%'; exp.style.height='57px';
+        var btn=document.createElement('button');
+        btn.type='button'; btn.className='cert-expander'; btn.setAttribute('aria-expanded','false');
+        btn.setAttribute('aria-label','فتح أو إغلاق أنشطة القطاع');
+        exp.appendChild(btn); tr.appendChild(exp);
+        ['sector','degree','nonFinancialScore','financialScore','status'].forEach(function(c){
+          var td=document.createElement('td'); td.className='dataValueRead gridCell';
+          var d=document.createElement('div'); d.className='oflowDivM';
+          var sp=document.createElement('span'); sp.textContent=esc(row[c]);
+          d.appendChild(sp); td.appendChild(d); tr.appendChild(td);
+        });
+        var detail=makeActivityDetail(row,idx,6);
+        btn.addEventListener('click',function(ev){ev.preventDefault(); ev.stopPropagation(); toggleDetail(btn,detail);});
+        tr.addEventListener('click',function(ev){ if(ev.target.closest('.cert-expander')) return; toggleDetail(btn,detail); });
+        tr.tabIndex=0;
+        tr.addEventListener('keydown',function(ev){ if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggleDetail(btn,detail);} });
+        tb.appendChild(tr); tb.appendChild(detail);
+      });
+    });
+  }
   function renderRows(tableName,rows,cols){
-    document.querySelectorAll('table[data-cert-table="'+tableName+'"]').forEach(function(table){
+    if(tableName==='classifications'){ renderClassifications(rows); return; }
+    dataTables(tableName).forEach(function(table){
       var tb=table.tBodies[0]; if(!tb) return; while(tb.children.length>1) tb.removeChild(tb.lastChild);
       (rows||[]).forEach(function(row,idx){
         var tr=document.createElement('tr'); tr.className=(idx%2?'evenRow':'oddRow')+' cellCont';
-        if(tableName==='classifications'){
-          var exp=document.createElement('td'); exp.className='expandPane rowHandle '+(idx%2?'evenRow':'oddRow'); exp.style.width='1%'; tr.appendChild(exp);
-        }
         cols.forEach(function(c){ var td=document.createElement('td'); td.className='dataValueRead gridCell'; var d=document.createElement('div'); d.className='oflowDivM'; var sp=document.createElement('span'); sp.textContent=esc(row[c]); d.appendChild(sp); td.appendChild(d); tr.appendChild(td); });
         tb.appendChild(tr);
       });

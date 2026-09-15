@@ -28,14 +28,23 @@
       "degree": "الثانية",
       "nonFinancialScore": "",
       "financialScore": "BBB",
-      "status": "Classified"
+      "status": "Classified",
+      "activities": []
     },
     {
       "sector": "التشغيل والصيانة والخدمات",
       "degree": "الثانية",
       "nonFinancialScore": "",
       "financialScore": "BBB",
-      "status": "Classified"
+      "status": "Classified",
+      "activities": [
+        "مشروعات الري تشغيل نظم الري للمشروعات الزراعية",
+        "استخراج المياه غير الصالحة للشرب",
+        "تحلية المياه",
+        "نقل وتوزيع المياه",
+        "تجميع ونقل مياه الصرف الصحي",
+        "تشغيل شبكات ومرافق معالجة الصرف الصحي"
+      ]
     }
   ],
   "versions": [
