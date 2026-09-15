@@ -158,7 +158,76 @@
     });
   }
 
+
+  function enableRatingGridInteraction(){
+    if(document.getElementById('cert-rating-interaction-style')) return;
+
+    var style=document.createElement('style');
+    style.id='cert-rating-interaction-style';
+    style.textContent=[
+      '.cert-rating-row{cursor:default;}',
+      '.cert-rating-row>td{transition:background-color .04s linear;}',
+      '.cert-rating-row.cert-rating-pressed>td{background:#e4864f !important;}',
+      '.cert-rating-focus{outline:2px solid #4f67c8 !important;outline-offset:-2px;position:relative;z-index:2;}',
+      '.cert-rating-focus:focus{outline:2px solid #4f67c8 !important;outline-offset:-2px;}',
+      '.cert-rating-row img{user-select:none;-webkit-user-drag:none;}'
+    ].join('');
+    document.head.appendChild(style);
+
+    var tables=Array.prototype.filter.call(document.querySelectorAll('table.gridTable'),function(table){
+      var text=(table.textContent||'').replace(/\\s+/g,' ');
+      return text.indexOf('معايير التقييم')>=0 && text.indexOf('نسبة التقييم')>=0 && text.indexOf('عدد التقييمات')>=0;
+    });
+
+    tables.forEach(function(table){
+      var rows=table.querySelectorAll('tr[data-row="true"]');
+      rows.forEach(function(row){
+        if(row.dataset.certRatingWired==='1') return;
+        row.dataset.certRatingWired='1';
+        row.classList.add('cert-rating-row');
+
+        row.querySelectorAll('td.gridCell').forEach(function(cell){
+          if(!cell.hasAttribute('tabindex')) cell.tabIndex=0;
+        });
+
+        function focusCell(target){
+          var cell=target && target.closest ? target.closest('td.gridCell') : null;
+          if(!cell) return;
+          table.querySelectorAll('.cert-rating-focus').forEach(function(old){old.classList.remove('cert-rating-focus');});
+          cell.classList.add('cert-rating-focus');
+          try{cell.focus({preventScroll:true});}catch(_){try{cell.focus();}catch(__){}}
+        }
+
+        function press(target){
+          table.querySelectorAll('.cert-rating-pressed').forEach(function(old){old.classList.remove('cert-rating-pressed');});
+          row.classList.add('cert-rating-pressed');
+          focusCell(target);
+        }
+        function release(){ row.classList.remove('cert-rating-pressed'); }
+
+        row.addEventListener('pointerdown',function(ev){
+          if(ev.button!==undefined && ev.button!==0) return;
+          press(ev.target);
+        });
+        row.addEventListener('pointerup',release);
+        row.addEventListener('pointercancel',release);
+        row.addEventListener('pointerleave',function(ev){ if(ev.buttons===0) release(); });
+        row.addEventListener('click',function(ev){ focusCell(ev.target); });
+        row.addEventListener('keydown',function(ev){
+          if(ev.key!=='Enter' && ev.key!==' ') return;
+          press(ev.target);
+          setTimeout(release,140);
+        });
+      });
+    });
+
+    document.addEventListener('pointerup',function(){
+      document.querySelectorAll('.cert-rating-pressed').forEach(function(row){row.classList.remove('cert-rating-pressed');});
+    });
+  }
+
   async function start(){
+    enableRatingGridInteraction();
     var token=tokenFromPath();
     if(!token){ clearDynamic(); return; }
     try{
